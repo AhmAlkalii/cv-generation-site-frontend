@@ -1,1 +1,42 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="loginSubmitted()" class="border p-3 rounded-3  bg-info">
+  <div class="row g-0">
+    <div class="col text-center p-2 mb-3 bg-light">
+        <span class="fs-3">Login</span>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col mb-3">
+      <label for="email" class="form-label">Email:</label>
+      <input type="email" class="form-control" id="email" formControlName="email"  />
+      <div *ngIf="Email.invalid && (Email.dirty || Email.touched)" class="error">
+        <div *ngIf="Email.errors?.['required']">Email is required.</div>
+        <div *ngIf="Email.errors?.['email']">Invalid email address.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col mb-3">
+      <label for="pwd" class="form-label">Password:</label>
+      <input type="password" class="form-control" id="pwd" formControlName="pwd" />
+      <div *ngIf="PWD.invalid && (PWD.dirty || PWD.touched)" class="error">
+        <div *ngIf="PWD.errors?.['required']">Password is required.</div>
+        <div *ngIf="PWD.errors?.['minlength']">
+          Password must be at least 6 characters long.
+        </div>
+        <div *ngIf="PWD.errors?.['maxlength']">
+          Password cannot be more than 15 characters long.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6 offset-3">
+      <div class="d-grid">
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      </div>
+    </div>
+  </div>
+</form>

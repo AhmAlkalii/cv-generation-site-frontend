@@ -7,12 +7,22 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:5000';  // Update with your Flask backend URL
+  private apiUrl = 'http://localhost:5000'; 
 
   constructor(private http: HttpClient) {}
 
   registerUser(formData: any): Observable<any> {
     const url = `${this.apiUrl}/register`;
     return this.http.post(url, formData);
+  }
+
+  loginUser(loginData: any): Observable<any> {
+    const url = `${this.apiUrl}/login`;
+    return this.http.post(url, loginData);
+  }
+
+  generateCV(jobData: any): Observable<any> {
+    const url = `${this.apiUrl}/generate-cv`;
+    return this.http.post(url, jobData);
   }
 }

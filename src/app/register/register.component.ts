@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';  // Uncomment this line
-
+import { AuthService } from '../services/auth.service';  
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';  // Uncomment this line
 export class RegisterComponent implements OnInit {
   repeatPass: string = 'none';
 
-  constructor(private authService: AuthService) { }  // Uncomment this line
+  constructor(private authService: AuthService, private router: Router) { }  
 
   ngOnInit(): void {
   }
@@ -41,6 +41,8 @@ export class RegisterComponent implements OnInit {
 
       this.authService.registerUser(this.registerForm.value).subscribe(res => {  // Uncomment this line
         console.log(res);
+
+        this.router.navigate(['/cv-generation']);
       });
 
     } else {

@@ -1,0 +1,21 @@
+<div class="border p-3 rounded-3 custom-width" style="background-color: #872341;">
+    <div class="row g-0">
+        <div class="col text-center p-2 mb-3" style="background-color: #A9A9A9;">
+            <span class="fs-3">CV Generation</span>
+        </div>
+      </div>
+    <textarea [(ngModel)]="jobDescription" placeholder="Enter your job description"
+     class="form-control" id="exampleFormControlTextarea1" rows="7" style="background-color: #F3F3F3;"></textarea>
+    <div class="row">
+        <div class="col-6 offset-3">
+          <div class="d-grid">
+            <button (click)="generateCV()" style="background-color: #A9A9A9;">Generate CV</button>
+          </div>
+        </div>
+    </div>
+    <div *ngIf="generatedCV">
+      <h3>Generated CV:</h3>
+      <pre>{{ generatedCV }}</pre>
+    </div>
+</div>
+  
