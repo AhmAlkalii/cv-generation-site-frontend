@@ -1,7 +1,4 @@
-.container{
-    height: 100vh;
-    display:flex;
+.navbar{
     justify-content: center;
     align-items: center;
 }
-

@@ -13,9 +13,15 @@
           </div>
         </div>
     </div>
-    <div *ngIf="generatedCV">
-      <h3>Generated CV:</h3>
-      <pre>{{ generatedCV }}</pre>
-    </div>
 </div>
+<div *ngIf="error" class="error-message">
+  {{ error }}
+</div>
+
+<div *ngIf="generatedCV">
+  <h3>Generated CV:</h3>
+  <pre>{{ generatedCV }}</pre>
+</div>
+
+
   

@@ -1,0 +1,18 @@
+<nav class="navbar navbar-light" style="background-color: #C3ACD0;">
+    <div class="container-fluid">
+        <a class="navbar-brand" [routerLink]="['/']">CV Generation Site</a>
+        <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
+        <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a routerLink="login"  class="navbar-brand">Login Form</a>
+                </li>
+                <li class="nav-item active">
+                    <a routerLink="register"  class="navbar-brand">Registration Form</a>
+                </li>
+            </ul>
+        </div> 
+    </div>
+</nav>
+       
+        

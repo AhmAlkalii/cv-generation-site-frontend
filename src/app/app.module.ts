@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { CvGenerationComponent } from './cv-generation/cv-generation.component';
+import { HeaderComponent } from './header/header.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //import { AuthService } from './services/auth.service';
 
 @NgModule({
@@ -16,14 +18,16 @@ import { CvGenerationComponent } from './cv-generation/cv-generation.component';
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    CvGenerationComponent
+    CvGenerationComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [
     //AuthService

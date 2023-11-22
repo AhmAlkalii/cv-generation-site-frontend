@@ -8,7 +8,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class CvGenerationComponent {
   jobDescription: string = '';
-  generatedCV: any;
+  generatedCV: string = '';
+  error: string = '';
 
   constructor(private authService: AuthService) {}
 
@@ -21,13 +22,30 @@ export class CvGenerationComponent {
 
     // Use the AuthService to call the backend API
     this.authService.generateCV({ jobDescription: this.jobDescription }).subscribe(
-      (res) => {
-        this.generatedCV = res.generatedCV;
+     // Inside the success callback of the subscribe method in generateCV() method
+      (res: any) => {
+        if (res && res.choices && res.choices.length > 0) {
+          const firstChoice = res.choices[0];
+          if (firstChoice && firstChoice.message && firstChoice.message.content) {
+            // Extract and set the generated CV content
+            this.generatedCV = firstChoice.message.content.trim();
+            this.error = ''; // Clear any previous error
+          } else {
+            this.error = 'Unexpected response structure';
+            this.generatedCV = ''; // Clear the generated CV
+          }
+        } else {
+          this.error = 'Unexpected response structure';
+          this.generatedCV = ''; // Clear the generated CV
+        }
       },
       (err) => {
         console.error(err);
-        // Handle CV generation error
+        this.error = 'CV generation failed';
       }
     );
   }
 }
+
+
+
