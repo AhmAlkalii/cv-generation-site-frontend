@@ -10,42 +10,34 @@ export class CvGenerationComponent {
   jobDescription: string = '';
   generatedCV: string = '';
   error: string = '';
+  isCVGenerated: boolean = false; // track CV generation status
 
   constructor(private authService: AuthService) {}
 
   generateCV() {
     // Check if jobDescription is not empty
     if (!this.jobDescription.trim()) {
-      console.error('Job description cannot be empty');
+      this.error = 'Job description cannot be empty';
       return;
     }
 
-    // Use the AuthService to call the backend API
-    this.authService.generateCV({ jobDescription: this.jobDescription }).subscribe(
-     // Inside the success callback of the subscribe method in generateCV() method
-      (res: any) => {
-        if (res && res.choices && res.choices.length > 0) {
-          const firstChoice = res.choices[0];
-          if (firstChoice && firstChoice.message && firstChoice.message.content) {
-            // Extract and set the generated CV content
-            this.generatedCV = firstChoice.message.content.trim();
-            this.error = ''; // Clear any previous error
-          } else {
-            this.error = 'Unexpected response structure';
-            this.generatedCV = ''; // Clear the generated CV
-          }
-        } else {
-          this.error = 'Unexpected response structure';
-          this.generatedCV = ''; // Clear the generated CV
-        }
+    // Call the OpenAI API for CV generation on the frontend
+    this.authService.generateCVWithFetchAPI({ jobDescription: this.jobDescription }).subscribe(
+      (content: string) => {
+        // Update the UI with the new content
+        this.generatedCV += content;
+        this.isCVGenerated = true; // Set the flag to true after successful generation
       },
-      (err) => {
-        console.error(err);
+      (error) => {
+        console.error('Error:', error);
         this.error = 'CV generation failed';
+        this.isCVGenerated = false; // Set the flag to false on error
       }
     );
   }
+
+  resetCVGeneration() {
+    this.generatedCV = '';
+    this.isCVGenerated = false; // Reset the flag when resetting CV generation
+  }
 }
-
-
-

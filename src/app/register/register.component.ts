@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
       console.log(this.registerForm.valid);
       this.repeatPass = 'none';
 
-      this.authService.registerUser(this.registerForm.value).subscribe(res => {  // Uncomment this line
+      this.authService.registerUser(this.registerForm.value).subscribe(res => { 
         console.log(res);
 
         this.router.navigate(['/cv-generation']);

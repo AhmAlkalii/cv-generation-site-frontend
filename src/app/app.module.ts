@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { CvGenerationComponent } from './cv-generation/cv-generation.component';
 import { HeaderComponent } from './header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-//import { AuthService } from './services/auth.service';
+
 
 @NgModule({
   declarations: [
@@ -29,9 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     NgbModule
   ],
-  providers: [
-    //AuthService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
