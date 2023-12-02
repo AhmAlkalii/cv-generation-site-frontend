@@ -27,6 +27,7 @@ export class AuthService {
     return this.http.get(openaiApiKeyUrl);
   }
 
+  //setup
   public generateCVWithFetchAPI(jobData: any): Observable<string> {
     const resultSubject = new Subject<string>();
     const controller = new AbortController();
@@ -38,6 +39,7 @@ export class AuthService {
         const frontendApiKey = response.openai_api_key;
         const frontendApiUrl = 'https://api.openai.com/v1/chat/completions';
 
+        //Make Fetch Request
         fetch(frontendApiUrl, {
           method: 'POST',
           headers: {
@@ -53,10 +55,13 @@ export class AuthService {
           signal
         })
         .then(response => {
+
+          //Handle Response
           if (response.ok) {
-            const reader = response.body?.getReader(); // Use optional chaining to handle 'null'
+            const reader = response.body?.getReader(); 
             const decoder = new TextDecoder('utf-8');
 
+            //Read Chunks Asynchronously
             let accumulatedChunks = '';
             const readChunk = async () => {
               try {
@@ -84,7 +89,6 @@ export class AuthService {
                       }
                     } catch (error) {
                       console.error('Error parsing JSON:', error);
-                      // Handle the error as needed, e.g., resultSubject.error('CV generation failed');
                     }
                   }
                 });
@@ -98,18 +102,20 @@ export class AuthService {
             };
 
             readChunk();
+
+            //Handle Errors
           } else {
             console.error(`Error: ${response.status} - ${response.statusText}`);
             resultSubject.error('CV generation failed');
             resultSubject.complete();
           }
-        })
+        })  //Handle Fetch Errors
         .catch(error => {
           console.error('Error:', error);
           resultSubject.error('CV generation failed');
           resultSubject.complete();
         });
-      },
+      }, //Cleanup Subscriptions
       error => {
         console.error('Error fetching OpenAI API key:', error);
         resultSubject.error('CV generation failed');
